@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  producer_id: 1
+  client: MyString
+  venue: MyString
+  start_date: 2019-04-02 19:16:55
+  end_date: 2019-04-02 19:16:55
+  techs_required: false
+
+two:
+  producer_id: 1
+  client: MyString
+  venue: MyString
+  start_date: 2019-04-02 19:16:55
+  end_date: 2019-04-02 19:16:55
+  techs_required: false
