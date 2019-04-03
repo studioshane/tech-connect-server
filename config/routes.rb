@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   resources :technicians
   resources :producers
   resources :events
+  resources :users
 end
