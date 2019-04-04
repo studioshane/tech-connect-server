@@ -13,11 +13,18 @@ class TechniciansController < ApplicationController
     end 
 
     def create
-        @technician = Technician.new
-        if @technician.save 
-            render json: @technician  
+      @user = User.new
+        if @user.save
+          @technician = Technician.new
+          @technician.user_id = @user
+             if @technician.save 
+              render json: @technician  
+            
+             else 
+                render json: {error:"Technician cannot be created"}, status: 400
+             end 
         else 
-            render json: {error:"Technician cannot be created"}, status: 400
+          render json: {error:"User cannot be created"}, status: 400
         end 
     end 
 
