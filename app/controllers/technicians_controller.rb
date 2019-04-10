@@ -1,6 +1,5 @@
 class TechniciansController < ApplicationController
-    before_action :find_technician, only: [:show] 
-
+    before_action :find_technician, only: [:show, :events] 
 
 
     def index 
@@ -13,10 +12,10 @@ class TechniciansController < ApplicationController
     end 
 
     def create
-      @user = User.new
+      @user = User.new(user_params)
         if @user.save
-          @technician = Technician.new
-          @technician.user_id = @user
+          @technician = Technician.new(technician_params)
+          @technician.user = @user
              if @technician.save 
               render json: @technician  
             
@@ -26,6 +25,10 @@ class TechniciansController < ApplicationController
         else 
           render json: {error:"User cannot be created"}, status: 400
         end 
+    end 
+
+    def events
+        render json: @technician.events if @technician
     end 
 
          private 
@@ -38,14 +41,20 @@ class TechniciansController < ApplicationController
     def technician_params
         params.require(:technician).permit(
             :name,
-            :email,
             :phone,
             :day_rate,
             :audio, 
             :video,
             :lighting,
             :general,
-            :user_id
+            :email
+        )
+    end 
+
+        def user_params
+        params.require(:technician).permit(
+         :email,
+         :password
         )
     end 
 end

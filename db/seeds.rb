@@ -31,11 +31,15 @@ def generate_technician
     end 
 end 
 
+def av_company
+  company = ["PSAV", "AVC Live", "PSPAV", "Blitz", "Present Communications", "Waters Productions", "Eclipse Presentations", "Metro Broadcast", "Aztec", "Creative Staging", "Dreamtek", "Electrosonic", "First Network", "GEMS", "Icon", "MCL" ].sample
+end 
+
+
 def generate_producer
     num = 50
     until num == 101
-    company = ["PSAV", "AVC Live", "PSPAV", "Blitz", "Present Communications", "Waters Productions", "Eclipse Presentations", "Metro Broadcast", "Aztec", "Creative Staging", "Dreamtek", "Electrosonic", "First Network", "GEMS", "Icon", "MCL" ].sample
-    Producer.create(user_id: num, name: full_name, email:User.all[num-1].email, phone: Faker::PhoneNumber.cell_phone, company: company)
+    Producer.create(user_id: num, name: full_name, email:User.all[num-1].email, phone: Faker::PhoneNumber.cell_phone, company: av_company)
     num += 1
     end 
 end 
@@ -57,9 +61,9 @@ end
 
     
 def dates
-  dates = []
-  dates << DateTime.now.beginning_of_day.advance(hours: 7, days: gen_random_num(60))
-  dates << dates[0].advance(hours:12, days:gen_random_num(5))
+  start_date = DateTime.now.beginning_of_day.advance(hours: 7, days: gen_random_num(60))
+  end_date = start_date.advance(hours:12, days: gen_random_num(5))
+  [start_date, end_date]
 end 
 
 
@@ -68,10 +72,10 @@ end
 
 def create_event
 num = gen_random_num(1)
+date_arr = dates
         company = "#{Faker::Company.name} #{Faker::Company.suffix}"
-  
-    venue = ["St. Pancras Renaissance", "Royal Garden Hotel", "Shell Bulding", "ExCel London", "Olympia London", "Barclays 1CP", "Corinthia Hotel", "Glaziers Hall", "Drapers Hall", "Royal Tobacco Dock", "The Brewery", "The Truman Brewery", "Institute of Directors", "Natural History Museum", "The Kia Oval", "The Crystal", "The Savoy", "ETC St. Paul's", "ETC County Hall", "InterContinental 02", "InterContinental Park Lane", "Grosvenor Hotel", "Hilton Metropole", "Hilton Paddington"].sample
- Event.create(producer: Producer.all.sample, venue: venue, start_date: dates[0], end_date:dates[0], techs_required: (1..3).to_a.sample, client: company)
+        venue = ["St. Pancras Renaissance", "Royal Garden Hotel", "Shell Bulding", "ExCel London", "Olympia London", "Barclays 1CP", "Corinthia Hotel", "Glaziers Hall", "Drapers Hall", "Royal Tobacco Dock", "The Brewery", "The Truman Brewery", "Institute of Directors", "Natural History Museum", "The Kia Oval", "The Crystal", "The Savoy", "ETC St. Paul's", "ETC County Hall", "InterContinental 02", "InterContinental Park Lane", "Grosvenor Hotel", "Hilton Metropole", "Hilton Paddington"].sample
+        Event.create(producer: Producer.all.sample, venue: venue, start: date_arr[0], end:date_arr[1], techs_required: (1..3).to_a.sample, client: company, title: av_company)
 end 
 
 

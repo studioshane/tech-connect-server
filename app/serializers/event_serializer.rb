@@ -1,6 +1,6 @@
 class EventSerializer < ActiveModel::Serializer
 
-  attributes :id, :client, :venue, :start_date, :end_date, :techs_required
+  attributes :id, :client, :venue, :start, :end, :techs_required, :title
   has_many :technicians, through: :event_teches
   belongs_to :producer
 

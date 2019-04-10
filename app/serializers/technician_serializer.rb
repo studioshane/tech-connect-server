@@ -1,13 +1,6 @@
 class TechnicianSerializer < ActiveModel::Serializer
-  attributes :id, :name, :email, :phone, :day_rate, :audio, :video, :lighting, :general
+  attributes :id, :name, :email, :phone, :day_rate, :audio, :video, :lighting, :general, :is_technician
 
-  belongs_to :user
-
-
-  class UserSerializer < ActiveModel::Serializer
-     attributes :id
-  end
-
-
+  has_many :events
 
 end

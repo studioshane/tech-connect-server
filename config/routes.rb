@@ -4,4 +4,8 @@ Rails.application.routes.draw do
   resources :producers
   resources :events
   resources :users
+  post '/login', to: 'users#login'
+  get '/profile', to: 'users#profile'
+  get 'technicians/:id/events', to:  'technicians#events'
+  get 'producers/:id/events', to:  'producers#events'
 end

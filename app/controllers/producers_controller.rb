@@ -1,5 +1,5 @@
 class ProducersController < ApplicationController
-    before_action :find_producer, only: [:show] 
+    before_action :find_producer, only: [:show, :events] 
 
 
 
@@ -9,7 +9,29 @@ class ProducersController < ApplicationController
     end
 
     def show
-      render json: @event
+      render json: @producer
+    end 
+
+
+    def create
+      @user = User.new(user_params)
+        if @user.save
+          @producer = Producer.new(producer_params)
+           @producer.user = @user
+             if @producer.save 
+              render json: @producer  
+            
+             else 
+                render json: {error:"Producer cannot be created"}, status: 400
+             end 
+        else 
+          render json: {error:"User cannot be created"}, status: 400
+        end 
+    end 
+
+
+    def events
+        render json: @producer.events if @producer
     end 
 
          private 
@@ -28,4 +50,15 @@ class ProducersController < ApplicationController
             :user_id
         )
     end 
+
+    def user_params
+    params.require(:producer).permit(
+     :email,
+     :password
+    )
+    end 
 end
+
+
+
+

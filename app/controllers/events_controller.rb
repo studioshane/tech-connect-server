@@ -12,6 +12,17 @@ class EventsController < ApplicationController
       render json: @event
     end 
 
+    def create
+      @event = Event.new(event_params)
+        if @event.save
+          render json: @event
+        else 
+          render json: {error:"Event cannot be created"}, status: 400
+        end 
+    end 
+
+
+
          private 
 
      def find_event
