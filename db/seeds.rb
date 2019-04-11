@@ -84,7 +84,7 @@ end
 generate_technician 
 generate_producer
 
-50.times do
+250.times do
     create_event
 end
 

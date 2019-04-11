@@ -14,12 +14,20 @@ class EventsController < ApplicationController
 
     def create
       @event = Event.new(event_params)
+      @event.producer_id = params[:event][:id]
+      @event.title = params[:event][:company]
         if @event.save
           render json: @event
         else 
           render json: {error:"Event cannot be created"}, status: 400
         end 
     end 
+
+     def destroy
+        @event.destroy
+        render json: @event
+    end
+
 
 
 
@@ -32,12 +40,11 @@ class EventsController < ApplicationController
 
     def event_params
         params.require(:event).permit(
-            :producer_id,
             :client,
             :venue,
-            :start_date,
-            :end_date,
-            :techs_required
+            :start,
+            :end,
+            :techs_required,
         )
     end 
 end
