@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   
-  before_action :find_event, only: [:show, :destroy, :update]
+  before_action :find_event, only: [:show, :destroy, :update, :remove_technician]
     
     
     def index 
@@ -27,6 +27,10 @@ class EventsController < ApplicationController
         @event.destroy
         render json: @event
     end
+
+    def remove_technician
+      
+    end 
 
 
 
