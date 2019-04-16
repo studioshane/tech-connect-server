@@ -55,9 +55,6 @@ class EventsController < ApplicationController
       end 
     end 
 
-
-
-
          private 
 
     def find_event
